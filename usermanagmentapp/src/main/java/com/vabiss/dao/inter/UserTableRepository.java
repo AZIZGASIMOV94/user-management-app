@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserTableRepository extends CrudRepository<UserTable, Integer> {
-
+    UserTable findByUsername(String username);
 }
