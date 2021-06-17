@@ -1,7 +1,7 @@
 package com.vabiss.controller;
 
+
 import com.vabiss.config.JwtTokenUtil;
-import com.vabiss.dao.inter.UserTableRepository;
 import com.vabiss.dto.UserTableDTO;
 import com.vabiss.model.JwtRequest;
 import com.vabiss.model.JwtResponse;
@@ -13,20 +13,14 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
-public class UserController {
-
-    @Autowired
-    private UserTableRepository userRepository;
-
-    @Autowired
-    private UserTableRepository userDaoInter;
-
+public class JwtAuthenticationController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -55,6 +49,12 @@ public class UserController {
         return ResponseEntity.ok(userDetailsService.save(user));
     }
 
+    @RequestMapping("/me")
+    public Map<String, Object> home(Principal principal) {
+        Map<String, Object> model = new HashMap<>();
+        model.put("Auth User",  principal.getName());
+        return model;
+    }
 
     private void authenticate(String username, String password) throws Exception {
         try {
@@ -65,11 +65,4 @@ public class UserController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
-
-
-    @RequestMapping("/hello")
-    public String helloWorld() {
-        return "Hello World";
-    }
-
 }

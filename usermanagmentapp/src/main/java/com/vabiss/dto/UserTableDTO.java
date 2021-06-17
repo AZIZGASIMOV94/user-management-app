@@ -16,7 +16,7 @@ public class UserTableDTO {
     }
 
     public UserTableDTO(UserTable u){
-        this.username =u.getUsername();
+        this.username = u.getUsername();
         //this.password = u.getPassword();
     }
 
