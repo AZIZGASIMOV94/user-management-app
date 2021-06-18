@@ -14,18 +14,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureMockMvc
 class UsermanagmentappApplicationTests {
 
-	@Autowired
-	private MockMvc mvc;
-
-	@Autowired
-	private TestRestTemplate testRestTemplate;
-
-	@Test
-	public void exampleTest() throws Exception {
-		this.mvc.perform(get("/register")).andExpect(MockMvcResultMatchers.status().isForbidden());
-	}
-
-
 	@Test
 	void contextLoads() {
 
