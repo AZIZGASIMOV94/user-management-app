@@ -38,7 +38,7 @@ Main components are "entity" package contains the represetation of User table, "
 
 ### Request
 
-`GET /api/authenticate`
+`POST /api/authenticate`
 
     http://localhost:8090/api/authenticate
 
@@ -64,7 +64,7 @@ Main components are "entity" package contains the represetation of User table, "
 
 ### Request
 
-`GET /api/authenticate`
+`POST /api/authenticate`
 
     http://localhost:8090/api/authenticate
     
@@ -77,4 +77,27 @@ Main components are "entity" package contains the represetation of User table, "
 
 ### Sample Response
     404 Not Found
+
+
+## After successful auth
+
+### Request
+
+`GET /api/me`
+
+    http://localhost:8090/api/me
+    
+### Sample JSON data 
+
+{
+    "username":"name",
+    "password":"pass"
+}
+
+### Sample Response
+
+{
+    "username":"name",
+}
+
 
