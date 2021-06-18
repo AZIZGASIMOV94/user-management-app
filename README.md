@@ -6,11 +6,9 @@
 
 # REST API
 
-The REST API app is described below. 
+## The REST API app is described below. 
 Main components are "entity" package contains the represetation of User table, "dao" package contains default interfaces and implementation classes,
 "config", "service", "model" packages are for jwt configuration. Spring securty password encoder is used.
-
-## Get list of Employees
 
 ### Request
 
