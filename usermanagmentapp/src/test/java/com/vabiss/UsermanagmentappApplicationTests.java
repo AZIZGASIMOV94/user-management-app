@@ -1,13 +1,34 @@
 package com.vabiss;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class UsermanagmentappApplicationTests {
+
+	@Autowired
+	private MockMvc mvc;
+
+	@Autowired
+	private TestRestTemplate testRestTemplate;
+
+	@Test
+	public void exampleTest() throws Exception {
+		this.mvc.perform(get("/register")).andExpect(MockMvcResultMatchers.status().isForbidden());
+	}
+
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

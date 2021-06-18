@@ -2,11 +2,13 @@ package com.vabiss.controller;
 
 
 import com.vabiss.config.JwtTokenUtil;
+import com.vabiss.dto.ResponseDTO;
 import com.vabiss.dto.UserTableDTO;
 import com.vabiss.model.JwtRequest;
 import com.vabiss.model.JwtResponse;
 import com.vabiss.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class JwtAuthenticationController {
+public class UserRestAuthenticationController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -30,6 +32,18 @@ public class JwtAuthenticationController {
 
     @Autowired
     private JwtUserDetailsService userDetailsService;
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<?> saveUser(@RequestBody UserTableDTO user) throws Exception {
+        return ResponseEntity.ok(userDetailsService.save(user));
+    }
+
+    @RequestMapping("/me")
+    public Map<String, Object> home(Principal principal) {
+        Map<String, Object> model = new HashMap<>();
+        model.put("username", principal.getName());
+        return model;
+    }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
@@ -42,18 +56,6 @@ public class JwtAuthenticationController {
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<?> saveUser(@RequestBody UserTableDTO user) throws Exception {
-        return ResponseEntity.ok(userDetailsService.save(user));
-    }
-
-    @RequestMapping("/me")
-    public Map<String, Object> home(Principal principal) {
-        Map<String, Object> model = new HashMap<>();
-        model.put("Auth User",  principal.getName());
-        return model;
     }
 
     private void authenticate(String username, String password) throws Exception {
